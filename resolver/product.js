@@ -5,8 +5,16 @@ exports.Product = {
 
     return categories.find((category) => category.id === categoryId);
   },
-  reviews: ({ id }, args, { reviews }) => {
+  reviews: ({ id }, { filter }, { reviews }) => {
     // const { id } = parent;
-    return reviews.filter((review) => review.productId === id);
+    console.log(filter);
+    const productReviews = reviews.filter((review) => review.productId === id);
+    if (filter) {
+      return productReviews.filter(
+        (review) => review.rating >= filter.avgRating
+      );
+    } else {
+      return productReviews;
+    }
   },
 };
