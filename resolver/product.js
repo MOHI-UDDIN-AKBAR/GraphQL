@@ -1,14 +1,16 @@
 exports.Product = {
-  category: ({ categoryId }, args, { categories }) => {
+  category: ({ categoryId }, args, { db }) => {
     // console.log(parent);
     // const { categoryId } = parent;
 
-    return categories.find((category) => category.id === categoryId);
+    return db.categories.find((category) => category.id === categoryId);
   },
-  reviews: ({ id }, { filter }, { reviews }) => {
+  reviews: ({ id }, { filter }, { db }) => {
     // const { id } = parent;
     console.log(filter);
-    const productReviews = reviews.filter((review) => review.productId === id);
+    const productReviews = db.reviews.filter(
+      (review) => review.productId === id
+    );
     if (filter) {
       return productReviews.filter(
         (review) => review.rating >= filter.avgRating
